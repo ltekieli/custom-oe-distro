@@ -1,0 +1,7 @@
+bitbake/
+build/
+meta-arm/
+meta-openembedded/
+meta-raspberrypi/
+meta-ti/
+oe-core/

@@ -1,0 +1,53 @@
+header:
+  version: 8
+machine: raspberrypi0-wifi
+distro: tequila
+target: core-image-minimal
+repos:
+  oe-core:
+    url: "git://git.openembedded.org/openembedded-core"
+    refspec: 514b595bda487ff74ae16539d716628a1d0be8af
+    layers:
+      meta:
+  bitbake:
+    url: "git://git.openembedded.org/bitbake"
+    refspec: 71aaac9efa69abbf6c27d174e0862644cbf674ef
+    layers:
+      conf: disabled
+  meta-openembedded:
+    url: "git://git.openembedded.org/meta-openembedded"
+    refspec: f431022415f3eaeb1f4563f4c7cdb7e33461e805
+    layers:
+      meta-oe:
+  meta-raspberrypi:
+    url: "git@github.com:agherzan/meta-raspberrypi.git"
+    refspec: 3e2a8534a6f00d66860a9fab4c59b3117ebda43a
+  meta-custom:
+    path: "../meta-custom"
+bblayers_conf_header:
+  standard: |
+    POKY_BBLAYERS_CONF_VERSION = "7"
+    BBPATH = "${TOPDIR}"
+    BBFILES ?= ""
+    BBMASK += "meta-custom/recipes-ti"
+    BBMASK += "meta-custom/recipes-kernel/linux/linux-ti-mainline_git.bbappend"
+local_conf_header:
+  standard: |
+    CONF_VERSION = "1"
+    SDKMACHINE = "x86_64"
+    USER_CLASSES = "buildstats image-mklibs image-prelink"
+    PATCHRESOLVE = "noop"
+    DL_DIR = "/opt/oe/dl"
+    SSTATE_DIR = "/opt/oe/sstate"
+  debug-tweaks: |
+    EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+  diskmon: |
+    BB_DISKMON_DIRS = "\
+        STOPTASKS,${TMPDIR},1G,100K \
+        STOPTASKS,${DL_DIR},1G,100K \
+        STOPTASKS,${SSTATE_DIR},1G,100K \
+        STOPTASKS,/tmp,100M,100K \
+        ABORT,${TMPDIR},100M,1K \
+        ABORT,${DL_DIR},100M,1K \
+        ABORT,${SSTATE_DIR},100M,1K \
+        ABORT,/tmp,10M,1K"
