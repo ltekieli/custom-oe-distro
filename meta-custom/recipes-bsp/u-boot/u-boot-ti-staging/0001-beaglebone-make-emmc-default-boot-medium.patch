@@ -1,0 +1,22 @@
+From 2f58f3837e6903a63cb026372475c3348d4ca4ae Mon Sep 17 00:00:00 2001
+From: Kas User <kas@example.com>
+Date: Wed, 4 Jan 2023 19:39:06 +0000
+Subject: [PATCH] beaglebone: make emmc default boot medium
+
+---
+ include/configs/am335x_evm.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/configs/am335x_evm.h b/include/configs/am335x_evm.h
+index 7d8e30db1a..e97e902299 100644
+--- a/include/configs/am335x_evm.h
++++ b/include/configs/am335x_evm.h
+@@ -105,7 +105,7 @@
+ 	DEFAULT_MMC_TI_ARGS \
+ 	DEFAULT_FIT_TI_ARGS \
+ 	"boot=mmc\0" \
+-	"bootpart=0:2\0" \
++	"bootpart=1:2\0" \
+ 	"bootdir=/boot\0" \
+ 	"bootfile=zImage\0" \
+ 	"fdtfile=undefined\0" \
