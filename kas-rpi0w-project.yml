@@ -29,6 +29,7 @@ bblayers_conf_header:
     POKY_BBLAYERS_CONF_VERSION = "7"
     BBPATH = "${TOPDIR}"
     BBFILES ?= ""
+    BBMASK += "meta-custom/recipes-core/systemd-bbb-gether-fix"
     BBMASK += "meta-custom/recipes-ti"
     BBMASK += "meta-custom/recipes-kernel/linux/linux-ti-mainline_git.bbappend"
     BBMASK += "meta-custom/recipes-kernel/linux/linux-ti-next_git.bbappend"
