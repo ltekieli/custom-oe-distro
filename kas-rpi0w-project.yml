@@ -6,24 +6,24 @@ target: core-image-minimal
 repos:
   oe-core:
     url: "git://git.openembedded.org/openembedded-core"
-    refspec: 514b595bda487ff74ae16539d716628a1d0be8af
+    refspec: 3b27f6356a3bf0138da0c3dcd87aa8e4a93ae56b
     layers:
       meta:
   bitbake:
     url: "git://git.openembedded.org/bitbake"
-    refspec: 71aaac9efa69abbf6c27d174e0862644cbf674ef
+    refspec: 367a83ed46c7fbcdd06579b6cc3a6e48a89ca7fb
     layers:
       conf: disabled
   meta-openembedded:
     url: "git://git.openembedded.org/meta-openembedded"
-    refspec: f431022415f3eaeb1f4563f4c7cdb7e33461e805
+    refspec: 0b5ca9a0f8189e52fad9549fc99e929cd0d3e64a
     layers:
       meta-oe:
   meta-raspberrypi:
     url: "git@github.com:agherzan/meta-raspberrypi.git"
-    refspec: 3e2a8534a6f00d66860a9fab4c59b3117ebda43a
+    refspec: 2b733d53f33849aeefec6bde5b528c3a3b155e14
   meta-custom:
-    path: "../meta-custom"
+    path: "meta-custom"
 bblayers_conf_header:
   standard: |
     POKY_BBLAYERS_CONF_VERSION = "7"
@@ -31,11 +31,12 @@ bblayers_conf_header:
     BBFILES ?= ""
     BBMASK += "meta-custom/recipes-ti"
     BBMASK += "meta-custom/recipes-kernel/linux/linux-ti-mainline_git.bbappend"
+    BBMASK += "meta-custom/recipes-kernel/linux/linux-ti-next_git.bbappend"
 local_conf_header:
   standard: |
-    CONF_VERSION = "1"
+    CONF_VERSION = "2"
     SDKMACHINE = "x86_64"
-    USER_CLASSES = "buildstats image-mklibs image-prelink"
+    USER_CLASSES = "buildstats"
     PATCHRESOLVE = "noop"
     DL_DIR = "/opt/oe/dl"
     SSTATE_DIR = "/opt/oe/sstate"
@@ -47,7 +48,7 @@ local_conf_header:
         STOPTASKS,${DL_DIR},1G,100K \
         STOPTASKS,${SSTATE_DIR},1G,100K \
         STOPTASKS,/tmp,100M,100K \
-        ABORT,${TMPDIR},100M,1K \
-        ABORT,${DL_DIR},100M,1K \
-        ABORT,${SSTATE_DIR},100M,1K \
-        ABORT,/tmp,10M,1K"
+        HALT,${TMPDIR},100M,1K \
+        HALT,${DL_DIR},100M,1K \
+        HALT,${SSTATE_DIR},100M,1K \
+        HALT,/tmp,10M,1K"
