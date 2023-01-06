@@ -1,0 +1,14 @@
+[Unit]
+Description=Restarts the gadget ethernet
+After=systemd-udevd.service
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/modprobe -r g_ether
+ExecStart=/bin/sleep 1
+ExecStart=/sbin/modprobe g_ether
+RemainAfterExit=true
+StandardOutput=journal
+
+[Install]
+WantedBy=multi-user.target
