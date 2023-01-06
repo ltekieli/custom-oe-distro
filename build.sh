@@ -15,6 +15,7 @@ docker_run() {
         -v "$HOME"/.ssh:"${HOME}"/.ssh \
         -v ${SCRIPT_DIR}:/workspace \
         -v /opt/oe:/opt/oe \
+        --workdir /workspace \
         oe-env /bin/bash
 }
 
